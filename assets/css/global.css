@@ -1,0 +1,413 @@
+/* Reset e base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Corpo */
+body {
+    background: #f4f4f4;
+    color: #333;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar */
+nav {
+    background: #2C3E50;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Sfondo della pagina di login */
+body {
+    background: url("../img/login.jpg") no-repeat center center/cover;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+/* Contenitore della registrazione */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+/* Box del form */
+.register-box {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    width: 350px;
+}
+
+/* Logo nel form */
+.form-logo {
+    width: 60px;
+    margin-bottom: 10px;
+}
+
+/* Stile per la navbar con logo */
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.logo img {
+    height: 30px;
+    width: auto;
+    margin-right: 10px;
+}
+
+.logo a {
+    text-decoration: none;
+    color: white !important;
+    font-weight: bold;
+}
+
+/* Box della dashboard */
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    text-align: center;
+}
+
+.dashboard-header {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    width: 400px;
+}
+
+.dashboard-logo {
+    width: 60px;
+    margin-bottom: 10px;
+}
+
+
+
+/* Stile specifico per la scritta "Mediafarm" accanto al logo */
+.logo a {
+    text-decoration: none;
+    color: white !important; /* Forza il colore bianco */
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+/* Assicura che il testo non cambi colore */
+.logo a:visited, 
+.logo a:active {
+    color: white !important;
+}
+
+/* Rimuove l'effetto viola dei link */
+.logo a span {
+    color: white !important;
+}
+
+/* Regolazione del logo accanto alla scritta */
+.logo img {
+    height: 30px;  /* Dimensione fissa del logo */
+    width: auto;
+    margin-right: 10px; /* Distanza tra logo e scritta */
+}
+
+/* Stile hover */
+.logo a:hover {
+    color: #1ABC9C;
+}
+
+
+.logo img {
+    height: 40px; /* Dimensione regolabile */
+    margin-right: 10px;
+}
+
+/* Menu di navigazione */
+nav ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+nav ul li a:hover, 
+nav ul li a.active {
+    background: #1ABC9C;
+}
+
+/* Navbar Responsive */
+@media screen and (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 10px;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Contenitore che include sia Hero che Features */
+.hero-features-container {
+    background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url("../img/homepage.png") no-repeat center center/cover;
+    background-size: cover;
+    width: 100%;
+    min-height: 100vh; /* Per coprire l'intera altezza */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Sezione Hero */
+#hero {
+    color: rgb(7, 7, 7);
+    text-align: center;
+    padding: 80px 20px;
+}
+
+/* Sezione Features */
+#features {
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 50px 20px;
+}
+
+/* Adattamento per dispositivi mobili */
+@media screen and (max-width: 768px) {
+    .hero-features-container {
+        min-height: 100vh; /* Mantiene l'altezza su schermi piccoli */
+    }
+}
+
+/* Bottone "Iscriviti Ora" */
+#register-btn {
+    display: inline-block;
+    margin: 30px auto;
+    padding: 12px 20px;
+    background: #1ABC9C;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+#register-btn:hover {
+    background: #16A085;
+}
+
+/* Sfondo della pagina di login */
+body.login-page {
+    background: url("../img/login.jpg") no-repeat center center/cover;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Sfondo della pagina di registrazione */
+body.register-page {
+    background: url("../img/registrazione.jpg") no-repeat center center/cover;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Contenitore del login */
+.login-container {
+    background: rgba(255, 255, 255, 0.9); /* Leggera trasparenza */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    margin: auto;
+    margin-top: 100px;
+    text-align: center;
+}
+
+/* Logo e scritta "Mediafarm" */
+.login-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Icona Mediafarm accanto alla scritta */
+.logo-img {
+    width: 40px;
+    height: auto;
+}
+
+/* Scritta Mediafarm */
+.site-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2C3E50; /* Stesso colore della homepage */
+    text-decoration: none; /* Evita il colore del link */
+}
+
+/* Pulsante "Torna Indietro" */
+.back-button {
+    position: fixed;
+    top: 80px;  /* Distanza dalla navbar */
+    left: 15px; /* Posizione laterale */
+    background: #1ABC9C;
+    color: white;
+    border: none;
+    border-radius: 25px; /* Forma arrotondata */
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;  /* Adatta la larghezza al contenuto */
+    padding: 8px 15px; /* Ridotto il padding laterale */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    white-space: nowrap; /* Evita che la scritta vada a capo */
+}
+
+.back-button:hover {
+    background: #16A085;
+    transform: scale(1.05);
+}
+
+
+/* Adattamento per dispositivi mobili */
+@media screen and (max-width: 768px) {
+    #register-btn {
+        font-size: 16px;
+        padding: 10px 18px;
+    }
+
+    #hero {
+        height: 50vh;
+    }
+}
+
+/* Footer */
+footer {
+    background: #222;
+    color: white;
+    padding: 20px;
+    margin-top: auto;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px 30px;
+}
+
+/* Colonne del footer */
+.footer-column {
+    flex: 1;
+    text-align: center;
+    min-width: 200px;
+}
+
+.footer-column h4 {
+    margin-bottom: 10px;
+}
+
+/* Link utili */
+.footer-column ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-column ul li a {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-column ul li a:hover {
+    color: #1ABC9C;
+}
+
+/* Social Icons */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.social-icons a img {
+    width: 32px; /* Dimensione regolabile */
+    height: 32px;
+    transition: 0.3s;
+    display: block;
+}
+
+.social-icons a img:hover {
+    transform: scale(1.1);
+}
+
+
+/* Copyright */
+.copyright {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+/* Responsività */
+@media screen and (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .social-icons {
+        justify-content: center;
+        margin-top: 15px;
+    }
+}

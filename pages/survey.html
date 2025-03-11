@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partecipa al Sondaggio - Mediafarm</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/survey.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo"><a href="../index.html">Mediafarm</a></div>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Registrati</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <button class="back-button" onclick="history.back()">← Torna Indietro</button>
+
+    <div class="survey-container">
+        <h2 id="surveyTitle">Titolo del Sondaggio</h2>
+
+        <!-- Template per l'utente normale -->
+        <template id="user-template">
+            <form id="surveyForm">
+                <div id="questionsContainer">
+                    <!-- Le domande del sondaggio verranno caricate qui dinamicamente -->
+                </div>
+                <button type="submit">Invia Risposte</button>
+            </form>
+        </template>
+
+        <!-- Template per l'admin -->
+        <template id="admin-template">
+            <div id="adminOptions">
+                <button class="btn-edit" onclick="editSurvey()">Modifica</button>
+                <button class="btn-delete" onclick="deleteSurvey()">Elimina</button>
+            </div>
+        </template>
+    </div>
+
+    <script src="../assets/js/survey.js"></script>
+</body>
+</html>
