@@ -81,28 +81,77 @@ body {
     font-weight: bold;
 }
 
-/* Box della dashboard */
+/* Dashboard Page Styles */
 .dashboard-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 80vh;
     text-align: center;
+    padding: 50px 20px;
 }
 
-.dashboard-header {
+/* Profile Section */
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.avatar-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar-circle img {
+    width: 100%;
+    height: auto;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Dashboard Box */
+.dashboard-box {
     background: rgba(255, 255, 255, 0.9);
     padding: 30px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     text-align: center;
-    width: 400px;
+    width: 250px;
 }
 
-.dashboard-logo {
-    width: 60px;
+.dashboard-box h3 {
+    font-size: 22px;
     margin-bottom: 10px;
+}
+
+/* Logout Button */
+.logout-btn {
+    background: #E74C3C;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    background: #C0392B;
 }
 
 

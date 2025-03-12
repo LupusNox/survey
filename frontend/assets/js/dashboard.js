@@ -1,25 +1,36 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const userRole = localStorage.getItem("userRole") || "guest"; // Default a "guest" se non registrato
+    const dashboardContent = document.getElementById("dashboard-content");
+    const userNameElement = document.getElementById("user-name");
+    const userRoleElement = document.getElementById("user-role");
+    const logoutButton = document.getElementById("logout");
 
-    // Seleziona il template corretto
+    // Retrieve user data from localStorage
+    const userEmail = localStorage.getItem("userEmail") || "Ospite";
+    const userRole = localStorage.getItem("userRole") || "guest";
+
+    // Set user profile info
+    userNameElement.textContent = userEmail;
+    userRoleElement.textContent = `Ruolo: ${userRole === "ADMIN" ? "Amministratore" : "Utente"}`;
+
+    // Load appropriate dashboard template
     renderDashboardTemplate(userRole);
 
-    // Recupero e aggiornamento dati della dashboard
+    // Fetch statistics based on role
     fetchDashboardData(userRole);
 
     // Setup logout
     setupLogout();
 });
 
-// Funzione per selezionare e mostrare il template corretto (Admin, Utente o Ospite)
+// ✅ Function to render the correct dashboard template
 function renderDashboardTemplate(role) {
     const adminTemplate = document.getElementById("admin-dashboard");
     const userTemplate = document.getElementById("user-dashboard");
     const dashboardContent = document.getElementById("dashboard-content");
 
-    if (role === "admin") {
+    if (role === "ADMIN") {
         dashboardContent.innerHTML = adminTemplate.innerHTML;
-    } else if (role === "user") {
+    } else if (role === "USER") {
         dashboardContent.innerHTML = userTemplate.innerHTML;
     } else {
         dashboardContent.innerHTML = `
@@ -32,23 +43,23 @@ function renderDashboardTemplate(role) {
     }
 }
 
-// Funzione per recuperare i dati e aggiornare la dashboard
+// ✅ Fetch and update dashboard data
 function fetchDashboardData(role) {
     fetch("http://localhost:8081/api/statistics")
         .then(response => response.json())
         .then(data => {
-            if (role === "admin") {
+            if (role === "ADMIN") {
                 updateDashboardStats(data);
                 renderSurveyChart(data.surveysPerCategory);
                 renderUserStatsTable(data.userStats);
-            } else if (role === "user") {
+            } else if (role === "USER") {
                 updateUserDashboard(data);
             }
         })
         .catch(error => console.error("Errore nel caricamento delle statistiche:", error));
 }
 
-// Funzione per aggiornare i numeri delle statistiche (Admin)
+// ✅ Function to update statistics in admin dashboard
 function updateDashboardStats(data) {
     document.getElementById("total-surveys").textContent = data.totalSurveys || 0;
     document.getElementById("total-users").textContent = data.totalUsers || 0;
@@ -56,18 +67,18 @@ function updateDashboardStats(data) {
     document.getElementById("unique-visitors").textContent = data.uniqueVisitors || 0;
 }
 
-// Funzione per aggiornare i dati della dashboard per utenti registrati
+// ✅ Function to update statistics in user dashboard
 function updateUserDashboard(data) {
     document.getElementById("answered-surveys").textContent = data.userSurveys || 0;
     document.getElementById("available-surveys").textContent = data.availableSurveys || 0;
     document.getElementById("weekly-earnings").textContent = (data.userEarnings?.weekly || 0).toFixed(2) + "€";
     document.getElementById("total-earnings").textContent = (data.userEarnings?.total || 0).toFixed(2) + "€";
 
-    // Genera il grafico settimanale
+    // Generate weekly survey chart
     renderUserSurveyChart(data.userSurveyStats);
 }
 
-// Funzione per creare il grafico dei sondaggi per categoria (Admin)
+// ✅ Function to create the admin survey chart
 function renderSurveyChart(surveysPerCategory) {
     if (!surveysPerCategory || Object.keys(surveysPerCategory).length === 0) return;
 
@@ -98,7 +109,7 @@ function renderSurveyChart(surveysPerCategory) {
     });
 }
 
-// Funzione per creare il grafico settimanale dei sondaggi risposti (Utente)
+// ✅ Function to create the user weekly survey chart
 function renderUserSurveyChart(userSurveyStats) {
     if (!userSurveyStats || !userSurveyStats.dates || userSurveyStats.dates.length === 0) return;
 
@@ -129,7 +140,7 @@ function renderUserSurveyChart(userSurveyStats) {
     });
 }
 
-// Funzione per creare la tabella delle statistiche utenti (Admin)
+// ✅ Function to create the user statistics table (Admin)
 function renderUserStatsTable(userStats) {
     if (!userStats || userStats.length === 0) return;
 
@@ -148,27 +159,26 @@ function renderUserStatsTable(userStats) {
     });
 }
 
-// Funzione per gestire il logout
+// ✅ Function to handle logout
 function setupLogout() {
     const logoutButton = document.getElementById("logout");
     if (logoutButton) {
         logoutButton.addEventListener("click", function () {
-            localStorage.removeItem("token");
-            localStorage.removeItem("userRole");
+            localStorage.clear();
             window.location.href = "../index.html";
         });
     }
 }
 
-// Inizializzazione della mappa con Leaflet.js
+// ✅ Initialize map with Leaflet.js
 function initMap() {
-    var map = L.map("map").setView([41.9028, 12.4964], 6); // Centro su Italia
+    var map = L.map("map").setView([41.9028, 12.4964], 6); // Center on Italy
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // Simulazione attività recente
+    // Simulated recent activity
     fetch("http://localhost:8081/api/map-activities")
         .then(response => response.json())
         .then(data => {
@@ -180,7 +190,7 @@ function initMap() {
         .catch(error => console.error("Errore nel caricamento della mappa:", error));
 }
 
-// Avvia la mappa solo se il container è presente nella pagina
+// Start map only if container exists
 if (document.getElementById("map")) {
     initMap();
 }
