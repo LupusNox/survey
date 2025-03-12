@@ -1,7 +1,8 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", async function () {
     console.log("Mediafarm Ready!");
 
-    // Gestione del percorso delle immagini in base alla pagina
+    // Configurazione API base
+    const API_BASE_URL = "http://localhost:8081/api";
     const pathPrefix = window.location.pathname.includes("/pages/") ? "../" : "";
 
     // Aggiornamento dinamico del titolo della pagina
@@ -29,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Bottone di logout
     const logoutButton = document.querySelector("#logout");
     if (logoutButton) {
-        logoutButton.addEventListener("click", function() {
+        logoutButton.addEventListener("click", function () {
             localStorage.removeItem("token");
             window.location.href = pathPrefix + "index.html";
         });
@@ -68,5 +69,93 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
             </div>
             <p class="copyright">© 2025 Mediafarm - Tutti i diritti riservati.</p>`;
+    }
+
+    // Gestione del LOGIN
+    const loginForm = document.getElementById("loginForm");
+    if (loginForm) {
+        loginForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem("token", data.token);
+                    alert("Login riuscito!");
+                    window.location.href = "dashboard.html";
+                } else {
+                    alert(data.message || "Errore di autenticazione.");
+                }
+            } catch (error) {
+                console.error("Errore di login:", error);
+                alert("Errore nel login.");
+            }
+        });
+    }
+
+    // Gestione della REGISTRAZIONE
+    const registerForm = document.getElementById("registerForm");
+    if (registerForm) {
+        registerForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/register`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert("Registrazione completata! Ora puoi accedere.");
+                    window.location.href = "login.html";
+                } else {
+                    alert(data.message || "Errore durante la registrazione.");
+                }
+            } catch (error) {
+                console.error("Errore di registrazione:", error);
+                alert("Errore durante la registrazione.");
+            }
+        });
+    }
+
+    // Recupero dati della DASHBOARD
+    if (window.location.pathname.includes("dashboard.html")) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/dashboard/data`, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (!response.ok) throw new Error("Errore nel recupero dati");
+
+            const dashboardData = await response.json();
+
+            // Aggiorna la dashboard con i dati ricevuti
+            document.getElementById("total-surveys").innerText = dashboardData.totalSurveys;
+            document.getElementById("total-users").innerText = dashboardData.totalUsers;
+            document.getElementById("total-answers").innerText = dashboardData.totalAnswers;
+            document.getElementById("unique-visitors").innerText = dashboardData.uniqueVisitors;
+        } catch (error) {
+            console.error("Errore nel recupero dati della dashboard:", error);
+        }
     }
 });

@@ -16,14 +16,15 @@ body {
     flex-direction: column;
 }
 
-/* Navbar */
+/* Navbar con colore rosso leggermente rosato */
 nav {
-    background: #2C3E50;
+    background: #D76A6A; /* Rosso leggermente rosato */
     color: white;
     padding: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Sfondo della pagina di login */
@@ -185,23 +186,43 @@ nav ul li a.active {
     }
 }
 
-/* Contenitore che include sia Hero che Features */
+/* Contenitore Hero con filtro velato */
 .hero-features-container {
-    background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url("../img/homepage.png") no-repeat center center/cover;
+    background: url("../img/homepage.png") no-repeat center center/cover;
     background-size: cover;
+    position: relative;
     width: 100%;
-    min-height: 100vh; /* Per coprire l'intera altezza */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-/* Sezione Hero */
+
+
+/* Sezione Hero con box bianco */
 #hero {
-    color: rgb(7, 7, 7);
+    background: rgba(255, 255, 255, 0.9); /* Box bianco con leggera trasparenza */
+    padding: 40px 60px;
+    border-radius: 10px;
     text-align: center;
-    padding: 80px 20px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Testo del Hero */
+#hero h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #C05555;
+}
+
+#hero p {
+    font-size: 1.2rem;
+    color: #444;
+    margin-top: 10px;
 }
 
 /* Sezione Features */
@@ -209,14 +230,76 @@ nav ul li a.active {
     color: rgb(0, 0, 0);
     text-align: center;
     padding: 50px 20px;
+    position: relative;
+    z-index: 2;
+}
+/* Sezione Features con Box Bianco */
+#features {
+    background: rgba(255, 255, 255, 0.9); /* Box bianco semi-trasparente */
+    padding: 40px 60px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 900px;
+    margin: 30px auto; /* Centrato nella pagina */
 }
 
-/* Adattamento per dispositivi mobili */
+/* Titolo della sezione Features */
+#features h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #C05555; /* Stesso colore della navbar */
+    margin-bottom: 20px;
+}
+
+/* Stile delle caratteristiche */
+.features-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.feature {
+    background: rgba(255, 255, 255, 0.8); /* Ulteriore trasparenza per i box interni */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    text-align: center;
+}
+
+/* Stile del testo nei box */
+.feature h3 {
+    font-size: 1.5rem;
+    color: #C05555;
+}
+
+.feature p {
+    font-size: 1rem;
+    color: #444;
+}
+
+/* Adattamento per schermi più piccoli */
 @media screen and (max-width: 768px) {
-    .hero-features-container {
-        min-height: 100vh; /* Mantiene l'altezza su schermi piccoli */
+    #features {
+        width: 95%;
+        padding: 30px 20px;
+    }
+
+    .features-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .feature {
+        width: 90%;
     }
 }
+
 
 /* Bottone "Iscriviti Ora" */
 #register-btn {
