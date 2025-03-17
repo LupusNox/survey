@@ -1,5 +1,5 @@
-.survey-results-page {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/surveyresults.jpg") no-repeat center center/cover;
+.unique-visitors-page {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../img/unique-visitors.jpg") no-repeat center center/cover;
     background-attachment: fixed;
     display: flex;
     flex-direction: column;
@@ -7,7 +7,7 @@
 }
 
 /* Contenitore principale */
-.survey-results-container {
+.unique-visitors-container {
     background: rgba(255, 255, 255, 0.95);
     padding: 30px;
     border-radius: 12px;
@@ -25,32 +25,24 @@
 }
 
 /* Titolo con icona */
-.survey-results-container h2 {
+.unique-visitors-container h2 {
     font-size: 26px;
     color: #2c3e50;
     font-weight: bold;
 }
 
-/* Sezione Filtri */
-.filter-section {
+/* Informazioni visitatori */
+.visitor-info {
+    font-size: 18px;
+    color: #16a085;
+    font-weight: bold;
     margin-bottom: 20px;
 }
 
-.filter-section label {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.filter-section select {
-    padding: 8px;
-    margin-left: 10px;
-    border-radius: 5px;
-}
-
 /* Box per il grafico */
-.survey-results-box {
+.visitor-data-box {
     padding: 20px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.8);
     border-radius: 8px;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -65,25 +57,25 @@
 }
 
 /* Tabella */
-#resultsTable {
+#visitorTable {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
-#resultsTable th, #resultsTable td {
+#visitorTable th, #visitorTable td {
     border: 1px solid #ddd;
     padding: 12px;
     text-align: center;
     font-size: 16px;
 }
 
-#resultsTable th {
+#visitorTable th {
     background: #16a085;
     color: white;
 }
 
-#resultsTable tr:nth-child(even) {
+#visitorTable tr:nth-child(even) {
     background: #f2f2f2;
 }
 
@@ -93,7 +85,7 @@ canvas {
     max-height: 300px;
 }
 
-/* Nasconde gli elementi non visibili */
+/* Nasconde gli elementi che non devono essere mostrati */
 .hidden {
     display: none;
 }

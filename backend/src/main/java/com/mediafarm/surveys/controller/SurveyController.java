@@ -22,6 +22,42 @@ public class SurveyController {
     public ResponseEntity<Survey> createSurvey(@RequestBody Survey survey) {
         return ResponseEntity.ok(surveyService.createSurvey(survey));
     }
+    
+
+    // ✅ Controlla se l'utente ha già votato per un determinato sondaggio
+    @GetMapping("/{surveyId}/hasVoted")
+    public ResponseEntity<Map<String, Boolean>> hasUserVoted(
+            @PathVariable Long surveyId,
+            @RequestParam String userEmail) {
+        
+        boolean hasVoted = surveyService.hasUserVoted(surveyId, userEmail); // 🔥 Convertito surveyId in Long
+        return ResponseEntity.ok(Map.of("hasVoted", hasVoted));
+    }
+    
+ // ✅ Endpoint per registrare un voto
+    @PostMapping("/{surveyId}/vote")
+    public ResponseEntity<?> voteSurvey(@PathVariable String surveyId, @RequestBody Map<String, String> request) {
+        String userEmail = request.get("userEmail");
+        String selectedOption = request.get("selectedOption");
+
+        try {
+            Long surveyIdLong = Long.parseLong(surveyId); // 🔥 Converti surveyId in Long
+            
+            if (surveyService.hasUserVoted(surveyIdLong, userEmail)) {
+                return ResponseEntity.badRequest().body(Map.of("error", "Hai già votato per questo sondaggio"));
+            }
+
+            boolean voteRecorded = surveyService.recordVote(surveyIdLong, userEmail, selectedOption);
+
+            if (voteRecorded) {
+                return ResponseEntity.ok(Map.of("message", "Voto registrato con successo!"));
+            } else {
+                return ResponseEntity.badRequest().body(Map.of("error", "Errore nella registrazione del voto"));
+            }
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", "ID sondaggio non valido"));
+        }
+    }
 
     // Recuperare tutti i sondaggi
     @GetMapping("/all")

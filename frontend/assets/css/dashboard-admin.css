@@ -1,0 +1,16 @@
+body {
+    background: url("../img/dashboard-admin.jpg") no-repeat center center/cover;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.blue-box { background: #3498db; }
+.green-box { background: #2ecc71; }
+.yellow-box { background: #f1c40f; }
+.red-box { background: #e74c3c; }

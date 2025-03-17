@@ -1,139 +1,101 @@
-/* Contenitore principale del sondaggio */
+/* Sfondo per la pagina dei sondaggi */
+body {
+    background: url("../img/survey.jpg") no-repeat center center/cover;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+/* Contenitore principale */
 .survey-container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
     max-width: 800px;
     margin: 50px auto;
-    padding: 20px;
-    background: white;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    text-align: center;
 }
 
-/* Titolo del sondaggio */
-.survey-container h2 {
+/* Tabs per la selezione */
+.survey-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
     margin-bottom: 20px;
-    color: #2C3E50;
-    font-size: 24px;
 }
 
-/* Lista dei sondaggi */
-.survey-list {
+.tab-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #3498db;
+    color: white;
+    transition: 0.3s;
+}
+
+.tab-button.active {
+    background: #2980b9;
+}
+
+.tab-button:hover {
+    background: #2ecc71;
+}
+
+/* Sezioni */
+.survey-section {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Lista sondaggi */
+#survey-list, #answered-list {
     list-style: none;
     padding: 0;
 }
 
-/* Singolo sondaggio */
 .survey-item {
-    background: #f4f4f4;
+    background: #ecf0f1;
     padding: 15px;
-    margin-bottom: 10px;
+    margin: 10px 0;
     border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
+    text-align: left;
     transition: 0.3s;
 }
 
 .survey-item:hover {
-    background: #e0e0e0;
-}
-
-/* Link ai sondaggi */
-.survey-item a {
-    text-decoration: none;
-    font-weight: bold;
-    color: #3498db;
-}
-
-/* Contenitore delle domande */
-#questionsContainer {
-    margin-top: 20px;
-    text-align: left;
-}
-
-/* Singola domanda */
-.question {
-    margin-bottom: 15px;
-    padding: 10px;
-    background: #f8f9fa;
-    border-left: 4px solid #3498db;
-    border-radius: 5px;
-}
-
-/* Testo delle domande */
-.question p {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-}
-
-/* Input di risposta */
-.question input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
+    background: #bdc3c7;
 }
 
 /* Pulsanti */
-button {
-    padding: 10px 15px;
-    border: none;
+.vote-button, .view-results {
+    padding: 10px;
+    margin-top: 10px;
+    display: inline-block;
+    text-decoration: none;
+    font-weight: bold;
     border-radius: 5px;
     color: white;
-    cursor: pointer;
-    font-size: 14px;
-    margin-top: 10px;
     transition: 0.3s;
 }
 
-/* Pulsante per inviare il sondaggio */
-button[type="submit"] {
-    background: #3498db;
-    width: 100%;
+.vote-button {
+    background: #2ecc71;
 }
 
-button[type="submit"]:hover {
-    background: #2980b9;
+.view-results {
+    background: #e74c3c;
 }
 
-/* Pulsanti per Admin */
-#adminOptions {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+.vote-button:hover {
+    background: #27ae60;
 }
 
-/* Pulsante modifica */
-.btn-edit {
-    background: #28a745;
-}
-
-.btn-edit:hover {
-    background: #218838;
-}
-
-/* Pulsante elimina */
-.btn-delete {
-    background: #dc3545;
-}
-
-.btn-delete:hover {
-    background: #c82333;
-}
-
-/* Stile per il bottone "Torna Indietro" */
-.back-button {
-    display: block;
-    margin: 20px auto;
-    background: #bdc3c7;
-    color: #2C3E50;
-}
-
-.back-button:hover {
-    background: #95a5a6;
+.view-results:hover {
+    background: #c0392b;
 }

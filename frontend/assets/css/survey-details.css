@@ -1,0 +1,81 @@
+/* Sfondo specifico */
+body {
+    background: url("../img/surveydetails.jpg") no-repeat center center/cover;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+/* Contenitore principale */
+.survey-details-container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 800px;
+    margin: 50px auto;
+}
+
+/* Informazioni sondaggio */
+.survey-info {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.survey-info p {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+/* Pulsante per partecipare */
+.participate-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.participate-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Grafico */
+.survey-results {
+    margin-top: 20px;
+}
+
+canvas {
+    margin-top: 20px;
+    max-height: 300px;
+}
+
+/* Tabella risposte */
+.survey-responses {
+    margin-top: 30px;
+}
+
+#responsesTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#responsesTable th, #responsesTable td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+#responsesTable th {
+    background-color: #3498db;
+    color: white;
+}
+
+/* Nasconde gli elementi che non devono essere mostrati */
+.hidden {
+    display: none;
+}

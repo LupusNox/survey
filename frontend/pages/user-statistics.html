@@ -5,27 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Statistiche Utenti - Mediafarm</title>
     <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/statistics.css">
+    <link rel="stylesheet" href="../assets/css/user-statistics.css">
+    <link rel="icon" type="image/png" href="../assets/img/logomediafarm.png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
     <header>
         <nav>
-            <div class="logo"><a href="../index.html">Mediafarm</a></div>
+            <div class="logo">
+                <img src="../assets/img/logomediafarm.png" alt="Mediafarm Logo">
+                <a href="../index.html">Mediafarm</a>
+            </div>
             <ul>
                 <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="survey-details.html">Sondaggi</a></li>
-                <li><a href="user-statistics.html" class="active">Statistiche Utenti</a></li>
+                <li><a href="#" id="logout">Logout</a></li>
             </ul>
         </nav>
     </header>
 
+    <!-- Bottone Torna Indietro -->
+<button class="back-button" onclick="goBack()">← Torna Indietro</button>
+
+
     <div class="statistics-container">
-        <h2>Statistiche Utenti</h2>
-        <canvas id="userChart"></canvas>
+        <div class="statistics-header">
+            <img src="../assets/img/logomediafarm.png" alt="Logo Mediafarm" class="statistics-logo">
+            <h2>Statistiche Utenti</h2>
+        </div>
+
+        <div class="statistics-box">
+            <div class="filters">
+                <input type="text" id="searchUser" placeholder="🔍 Cerca utente per email...">
+                <button onclick="filterUsers()">Cerca</button>
+            </div>
+
+            <!-- Box con i dati principali -->
+            <div class="stats-overview">
+                <div class="stat-box">
+                    <h3>👥 Totale Utenti</h3>
+                    <p id="totalUsers">0</p>
+                </div>
+                <div class="stat-box">
+                    <h3>📊 Sondaggi Completati</h3>
+                    <p id="totalCompletedSurveys">0</p>
+                </div>
+                <div class="stat-box">
+                    <h3>💰 Guadagno Totale (€)</h3>
+                    <p id="totalEarnings">0</p>
+                </div>
+                <div class="stat-box">
+                    <h3>📋 Sondaggi Disponibili</h3>
+                    <p id="totalAvailableSurveys">0</p>
+                </div>
+            </div>
+
+            <!-- Grafico utenti attivi -->
+            <div class="chart-container">
+                <h3>📈 Attività Utenti</h3>
+                <canvas id="userActivityChart"></canvas>
+            </div>
+
+            <!-- Tabella Utenti -->
+            <div class="user-table-container">
+                <h3>📋 Dettagli Utenti</h3>
+                <table id="userStatsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Email</th>
+                            <th>Sondaggi Risposti</th>
+                            <th>Guadagno (€)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userStatsBody">
+                        <!-- Popolato dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
-    <script src="../assets/js/statistics.js"></script>
+    <script src="../assets/js/user-statistics.js"></script>
 </body>
 </html>

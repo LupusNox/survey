@@ -1,6 +1,10 @@
 package com.mediafarm.surveys.model;
 
 import jakarta.persistence.*;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
@@ -26,7 +30,23 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserAnswer> userAnswers;
+    
+ // ✅ TRACCIA I SONDAGGI VOTATI
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_voted_surveys", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "survey_id")
+    private Set<Long> votedSurveys = new HashSet<>();
+    // ✅ Controlla se l'utente ha già votato su un sondaggio
+    public boolean hasVoted(Long surveyId) {
+        return votedSurveys.contains(surveyId);
+    }
 
+    // ✅ Aggiunge un sondaggio ai voti dell'utente
+    public void addVotedSurvey(Long surveyId) {
+        votedSurveys.add(surveyId);
+    }
+    
+    
     // Metodo getId() ereditato da BaseEntity
     @Override
     public Long getId() {
@@ -56,5 +76,10 @@ public class User extends BaseEntity {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+ // ✅ Ritorna la lista dei sondaggi votati
+    public Set<Long> getVotedSurveys() {
+        return votedSurveys;
     }
 }

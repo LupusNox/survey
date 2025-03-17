@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Risultati dei Sondaggi - Mediafarm</title>
+    <title>Visitatori Unici - Mediafarm</title>
     <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/survey-results.css">
+    <link rel="stylesheet" href="../assets/css/unique-visitors.css">
     <link rel="icon" type="image/png" href="../assets/img/logomediafarm.png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="survey-results-page">
+<body class="unique-visitors-page">
 
     <header>
         <nav>
@@ -27,30 +27,23 @@
     <!-- Bottone Torna Indietro -->
     <button class="back-button" onclick="history.back()">← Torna Indietro</button>
 
-    <div class="survey-results-container">
-        <h2>📊 Risultati dei Sondaggi</h2>
+    <div class="unique-visitors-container">
+        <h2>📊 Visitatori Unici</h2>
+        <p id="visitorCount" class="visitor-info">Caricamento dati...</p>
 
-        <div class="filter-section">
-            <label for="surveyFilter">Filtra per Sondaggio:</label>
-            <select id="surveyFilter">
-                <option value="all">Tutti</option>
-                <!-- Opzioni generate dinamicamente -->
-            </select>
+        <div class="visitor-data-box">
+            <canvas id="visitorChart"></canvas>
         </div>
 
-        <div class="survey-results-box">
-            <canvas id="surveyResultsChart"></canvas>
-        </div>
-
-        <!-- Tabella dei risultati per Admin -->
-        <div id="adminResults" class="hidden admin-section">
-            <h3>📌 Dettagli Risultati</h3>
-            <table id="resultsTable">
+        <!-- Sezione Admin con statistiche dettagliate -->
+        <div id="adminStats" class="hidden admin-section">
+            <h3>📌 Statistiche Dettagliate</h3>
+            <table id="visitorTable">
                 <thead>
                     <tr>
-                        <th>Sondaggio</th>
-                        <th>Opzione</th>
-                        <th>Numero Risposte</th>
+                        <th>📅 Data</th>
+                        <th>🌍 Paese</th>
+                        <th>👥 Visitatori</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,6 +53,6 @@
         </div>
     </div>
 
-    <script src="../assets/js/survey-results.js"></script>
+    <script src="../assets/js/unique-visitors.js"></script>
 </body>
 </html>
