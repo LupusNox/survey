@@ -16,6 +16,15 @@ body {
     margin: 50px auto;
 }
 
+/* Stile per la riga "Nessun dato disponibile" */
+table tbody tr td[colspan="4"] {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    font-size: 16px;
+}
+
+
 /* Header con Logo */
 .statistics-header {
     display: flex;

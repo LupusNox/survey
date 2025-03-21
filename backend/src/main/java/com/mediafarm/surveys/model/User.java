@@ -1,8 +1,6 @@
 package com.mediafarm.surveys.model;
 
 import jakarta.persistence.*;
-
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.Getter;
@@ -20,6 +18,10 @@ public class User extends BaseEntity {
 
     @Column(nullable = false)
     private String password;
+    
+    @Column(nullable = false)
+    private double earnings = 0;
+
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

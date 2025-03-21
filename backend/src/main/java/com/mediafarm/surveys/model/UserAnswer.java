@@ -1,10 +1,10 @@
 package com.mediafarm.surveys.model;
 
 import jakarta.persistence.*;
-
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "user_answers")
@@ -14,13 +14,14 @@ public class UserAnswer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
-    private Date createdAt = new Date();
+    private LocalDateTime createdAt;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
-    private Date updatedAt = new Date();
+    @Column(name = "updated_at", nullable = true)
+    private LocalDateTime updatedAt;
+
+    
+    
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -35,8 +36,24 @@ public class UserAnswer {
     @JsonBackReference
     private Survey survey;
 
+    // 🔹 Costruttore che inizializza le date
+    public UserAnswer() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+    
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();  // Imposta il valore iniziale
+    }
+    
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();  // Aggiorna automaticamente
+    }
 
-    // Getters e Setters
+    // 🔹 Getters e Setters
     public Long getId() {
         return id;
     }
@@ -63,5 +80,22 @@ public class UserAnswer {
 
     public void setSurvey(Survey survey) {
         this.survey = survey;
+    }
+
+ // ✅ Usa LocalDateTime nei getter e setter
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

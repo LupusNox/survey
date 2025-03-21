@@ -1,0 +1,48 @@
+/* Sfondo della pagina */
+body {
+    background: url("../img/about.jpg") no-repeat center center/cover;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+/* Bottone di registrazione */
+.btn-register {
+    display: inline-block;
+    background: #1abc9c;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: 0.3s;
+  }
+  
+  .btn-register:hover {
+    background: #16a085;
+  }
+
+  
+/* Contenitore informazioni */
+.info-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 700px;
+    margin: 50px auto;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Titolo */
+h1 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Paragrafo */
+p {
+    font-size: 18px;
+    color: #555;
+}

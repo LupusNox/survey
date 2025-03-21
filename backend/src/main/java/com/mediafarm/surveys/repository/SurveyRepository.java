@@ -11,6 +11,8 @@ import java.util.List;
 public interface SurveyRepository extends JpaRepository<Survey, Long> {
 
     List<Survey> findByCreatedById(Long userId);
+    
+    List<Survey> findByIdIn(List<Long> ids);
 
     List<Survey> findByCompensoGreaterThan(double compenso);
 

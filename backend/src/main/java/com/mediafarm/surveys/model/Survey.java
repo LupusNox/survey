@@ -1,12 +1,14 @@
 package com.mediafarm.surveys.model;
 
 import jakarta.persistence.*;
+
+
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "surveys")
@@ -21,6 +23,9 @@ public class Survey {
 
     @Column(nullable = true)
     private String category;
+    
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
     @Column(nullable = false)
     private double compenso; // 🔥 Nuovo campo: compenso
@@ -40,6 +45,12 @@ public class Survey {
     @ManyToOne
     @JoinColumn(name = "created_by", nullable = false)
     private User createdBy; // L'utente che ha creato il sondaggio
+    
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Question> questions;
+    
+    @Column(nullable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @OneToMany(mappedBy = "survey", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<UserAnswer> userAnswers;
@@ -74,6 +85,18 @@ public class Survey {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+    
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 
     public String getCategory() {

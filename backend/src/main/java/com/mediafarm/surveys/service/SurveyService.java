@@ -1,13 +1,17 @@
 package com.mediafarm.surveys.service;
 
+import com.mediafarm.surveys.model.Answer;
+import com.mediafarm.surveys.model.Question;
 import com.mediafarm.surveys.model.Survey;
 import com.mediafarm.surveys.model.User;
-import com.mediafarm.surveys.model.Vote;
 import com.mediafarm.surveys.repository.SurveyRepository;
+import com.mediafarm.surveys.repository.UserAnswerRepository;
 import com.mediafarm.surveys.repository.UserRepository;
 import com.mediafarm.surveys.repository.VoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Map;
@@ -21,10 +25,13 @@ public class SurveyService {
     private SurveyRepository surveyRepository;
 
     @Autowired
-    private VoteRepository voteRepository;
+    private VoteRepository voteRepository;  // ✅ Ora useremo questo repository
     
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private UserAnswerRepository userAnswerRepository;  // ✅ Aggiunto repository per evitare l'errore
 
     @Transactional // 🔹 Mantiene la sessione aperta per evitare LazyInitializationException
     public Map<String, Long> getSurveyParticipation1() {
@@ -103,6 +110,21 @@ public class SurveyService {
         return false;
     }
     
+    // Recupera i sondaggi disponibili per l'utente (quelli a cui non ha risposto)
+    public List<Survey> getAvailableSurveys(String userEmail) {
+        List<Long> answeredSurveyIds = userAnswerRepository.findSurveyIdsByUserEmail(userEmail);
+        return surveyRepository.findAll()
+                .stream()
+                .filter(survey -> !answeredSurveyIds.contains(survey.getId()))
+                .collect(Collectors.toList());
+    }
+    
+ // Recupera i sondaggi a cui l'utente ha già risposto
+    public List<Survey> getAnsweredSurveys(String userEmail) {
+        List<Long> answeredSurveyIds = userAnswerRepository.findSurveyIdsByUserEmail(userEmail);
+        return surveyRepository.findByIdIn(answeredSurveyIds);
+    }
+    
  // ✅ Registra un voto per un sondaggio
     public boolean recordVote(Long surveyId, String userEmail, String selectedOption) {
         Optional<Survey> surveyOpt = surveyRepository.findById(surveyId);
@@ -126,6 +148,7 @@ public class SurveyService {
         return false;
     }
 
+    
 
     // Recuperare tutti i sondaggi
     public List<Survey> getAllSurveys() {
@@ -164,6 +187,66 @@ public class SurveyService {
             "incomplete", notCompleted
         );
     }
+    
+    
+    
+ // ✅ Recupera il sondaggio con tutte le domande e risposte
+    public Map<String, Object> getSurveyDetails(Long surveyId) {
+        Survey survey = surveyRepository.findById(surveyId).orElse(null);
+        if (survey == null) {
+            return Map.of("error", "Sondaggio non trovato");
+        }
+
+        List<Question> questions = survey.getQuestions();
+        Map<String, Object> details = new HashMap<>();
+        details.put("id", survey.getId());
+        details.put("title", survey.getTitle());
+        details.put("description", survey.getDescription());
+        details.put("questions", questions);
+
+        return details;
+    }
+
+ // ✅ Recupera i risultati del sondaggio, incluso il numero totale di voti ricevuti
+    public Map<String, Object> getSurveyResults(Long surveyId) {
+        Survey survey = surveyRepository.findById(surveyId).orElse(null);
+        if (survey == null) {
+            return Map.of("error", "Sondaggio non trovato");
+        }
+
+        long totalVotes = voteRepository.countBySurvey(survey);  // ✅ Usiamo voteRepository
+
+        List<Question> questions = survey.getQuestions();
+        Map<String, Object> results = new HashMap<>();
+        results.put("surveyTitle", survey.getTitle());
+        results.put("totalVotes", totalVotes);  // ✅ Aggiungiamo il totale voti nel risultato
+
+        List<Map<String, Object>> questionResults = new ArrayList<>();
+
+        for (Question question : questions) {
+            Map<String, Object> questionData = new HashMap<>();
+            questionData.put("question", question.getQuestionText());
+
+            List<Map<String, Object>> answerStats = new ArrayList<>();
+
+            for (Answer answer : question.getAnswers()) {
+                long responseCount = userAnswerRepository.countByAnswer(answer);
+
+                Map<String, Object> answerData = new HashMap<>();
+                answerData.put("answer", answer.getAnswerText());
+                answerData.put("count", responseCount);
+
+                answerStats.add(answerData);
+            }
+
+            questionData.put("answers", answerStats);
+            questionResults.add(questionData);
+        }
+
+        results.put("questions", questionResults);
+        return results;
+    }
+
 
     // Recuperare un sondaggio specifico
     public Survey getSurveyById(Long surveyId) {

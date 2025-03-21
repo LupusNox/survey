@@ -1,0 +1,50 @@
+/* Sfondo delle Impostazioni */
+body {
+    background: url("../img/settings-bg.jpg") no-repeat center center/cover;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Contenitore principale */
+.settings-container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 600px;
+    margin: 50px auto;
+}
+
+/* Form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 12px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Responsività */
+@media screen and (max-width: 768px) {
+    .settings-container {
+        width: 90%;
+    }
+}

@@ -27,6 +27,8 @@ nav {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+
+
 /* Sfondo della pagina di login */
 body {
     background: url("../img/login.jpg") no-repeat center center/cover;
@@ -450,7 +452,7 @@ body.register-page {
 
 /* Footer */
 footer {
-    background: #222;
+    background: #111;
     color: white;
     padding: 20px;
     margin-top: auto;
@@ -473,7 +475,9 @@ footer {
 
 .footer-column h4 {
     margin-bottom: 10px;
-}
+    font-size: 1.1rem;
+    color: #d7263d; /* colore titolo, se vuoi */
+  }
 
 /* Link utili */
 .footer-column ul {

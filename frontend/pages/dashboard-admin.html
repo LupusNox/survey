@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/dashboard-admin.css">
     <link rel="icon" type="image/png" href="../assets/img/logomediafarm.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -24,17 +25,21 @@
         </nav>
     </header>
 
+    <!-- Bottone Torna Indietro -->
     <button class="back-button" onclick="history.back()">← Torna Indietro</button>
 
+    <!-- Contenitore principale -->
     <div class="dashboard-container">
         <div class="dashboard-box">
-            <div class="user-profile">
-                <img src="../assets/img/adminicon.png" alt="Admin Icon" class="user-icon">
-                <h2 id="admin-name">Benvenuto, Admin</h2>
+            
+            <!-- Profilo Admin -->
+            <div class="admin-profile">
+                <img src="../assets/img/usericon.png" alt="Admin Icon" class="admin-icon">
+                <h2 id="admin-name">Admin</h2>
+                <h3>Dashboard Admin</h3>
             </div>
 
-            <h1>Dashboard Admin</h1>
-
+            <!-- Sezione box statistiche -->
             <div class="dashboard-grid">
                 <a href="survey-results.html" class="dashboard-box-item blue-box">
                     <h3>📊 Sondaggi Totali</h3>
@@ -45,7 +50,7 @@
                     <p id="total-users">0</p>
                 </a>
                 <a href="survey-details.html" class="dashboard-box-item yellow-box">
-                    <h3>📑 Risposte Totali</h3>
+                    <h3>📄 Risposte Totali</h3>
                     <p id="total-answers">0</p>
                 </a>
                 <a href="unique-visitors.html" class="dashboard-box-item red-box">
@@ -53,9 +58,63 @@
                     <p id="unique-visitors">0</p>
                 </a>
             </div>
+
         </div>
     </div>
 
+    <footer class="site-footer">
+        <div class="footer-container">
+          <!-- Colonna: Info generali -->
+          <div class="footer-column">
+            <h4>Mediafarm</h4>
+            <p>La piattaforma di sondaggi più affidabile.</p>
+          </div>
+      
+          <!-- Colonna: Link utili -->
+          <div class="footer-column">
+            <h4>Link Utili</h4>
+            <ul>
+              <li><a href="login.html">Accedi</a></li>
+              <li><a href="register.html">Registrati</a></li>
+              <li><a href="dashboard-guest.html">Dashboard</a></li>
+            </ul>
+          </div>
+      
+          <!-- Colonna: Contatti -->
+          <div class="footer-column">
+            <h4>Contatti</h4>
+            <p>Email: support@mediafarm.com</p>
+            <p>Telefono: +39 123 456 789</p>
+            <p>Partita IVA: 12345678901</p>
+          </div>
+      
+          <!-- Colonna: Social Icons -->
+          <div class="footer-column">
+            <h4>Seguici</h4>
+            <div class="social-icons">
+              <a href="https://twitter.com" target="_blank">
+                <img src="../assets/img/twitter.png" alt="Twitter">
+              </a>
+              <a href="https://t.me" target="_blank">
+                <img src="../assets/img/telegram.png" alt="Telegram">
+              </a>
+              <a href="https://facebook.com" target="_blank">
+                <img src="../assets/img/facebook.png" alt="Facebook">
+              </a>
+              <a href="https://instagram.com" target="_blank">
+                <img src="../assets/img/instagram.png" alt="Instagram">
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <!-- eventuale copyright -->
+        <p class="footer-copyright">
+          © 2025 Mediafarm - Tutti i diritti riservati.
+        </p>
+      </footer>
+      
+      <script src="../js/script.js"></script>
     <script src="../assets/js/dashboard-admin.js"></script>
 
 </body>

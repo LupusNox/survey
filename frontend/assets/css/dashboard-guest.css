@@ -1,0 +1,291 @@
+/* ==========================
+   NAVBAR
+   ========================== */
+   .navbar {
+    width: 100%;
+    background-color: #D76A6A; /* Colore principale della navbar */
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    position: fixed; 
+    top: 0; 
+    left: 0;
+    z-index: 1000;
+  }
+  
+  /* Logo e testo */
+  .navbar-logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-logo img {
+    height: 40px;   /* Evita che l'icona occupi tutto lo schermo */
+    width: auto;
+    margin-right: 10px;
+  }
+  
+  .navbar-logo a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.3rem;
+  }
+  
+  /* Menu voci di navigazione */
+  .navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    margin: 0; /* elimina eventuali default margin */
+    padding: 0;
+  }
+  
+  .navbar-menu li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s;
+    padding: 8px 12px;
+    border-radius: 5px;
+  }
+  
+  .navbar-menu li a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .navbar-menu li a.active {
+    text-decoration: underline;
+  }
+  
+  /* ==========================
+     BACK BUTTON (se serve)
+     ========================== */
+  .back-button {
+    position: absolute;
+    top: 80px;
+    left: 15px;
+    background: #1ABC9C;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 8px 15px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .back-button:hover {
+    background: #16A085;
+    transform: scale(1.05);
+  }
+  
+  /* ==========================
+     BACKGROUND & BODY
+     ========================== */
+  body {
+    margin: 0; 
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    background: url("../img/dashboard.jpg") center center / cover no-repeat fixed;
+    min-height: 100vh;
+    /* Lasciamo spazio per la navbar fissa */
+    padding-top: 70px; 
+  }
+  
+  /* ==========================
+     DASHBOARD CONTAINER
+     ========================== */
+  .dashboard-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px; 
+    min-height: calc(100vh - 70px);
+  }
+  
+  /* Card contenitore principale */
+  .dashboard-box {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Sezione profilo ospite (avatar, testo) */
+  .profile-section {
+    margin-bottom: 20px;
+  }
+  
+  .avatar-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #ddd;
+    margin: 0 auto 10px auto; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem; /* se vuoi un’icona testuale */
+    color: #555;
+  }
+  
+  /* ==========================
+     GRID DI BOX 2×2
+     ========================== */
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 colonne */
+        gap: 20px;
+        margin-top: 20px;
+        justify-items: stretch; /* ogni box si estende in larghezza */
+        align-items: stretch;   /* ogni box si estende in altezza */
+    }
+  
+  /* Box colorati (link o div cliccabili) */
+  .dashboard-box-item {
+    display: block;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  
+  .dashboard-box-item:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+  
+  /* Colori personalizzati */
+  .green-box  { background: #2ecc71; }
+  .blue-box   { background: #3498db; }
+  .orange-box { background: #f39c12; }
+  .cyan-box   { background: #1abc9c; }
+
+  /* FOOTER GENERALE */
+.site-footer {
+  background-color: #111; /* colore di sfondo */
+  padding: 20px 30px;
+  margin-top: 40px; /* se vuoi uno stacco dalla sezione precedente */
+  font-size: 0.95rem;
+  color: white;
+}
+
+/* Contenitore di tutte le colonne */
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;        /* permette di andare a capo su schermi stretti */
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 1200px;      /* larghezza massima */
+  margin: 0 auto;         /* centratura orizzontale */
+}
+
+/* Singola colonna */
+.footer-column {
+  flex: 1 1 200px;        /* le colonne si adattano */
+  min-width: 180px;
+  margin-bottom: 1rem;
+}
+
+.footer-column h4 {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  color: #d7263d; /* colore titolo, se vuoi */
+}
+
+.footer-column p,
+.footer-column ul {
+  margin: 0;
+  padding: 0;
+}
+
+.footer-column ul {
+  list-style: none;
+}
+
+.footer-column ul li {
+  margin: 6px 0;
+}
+
+.footer-column ul li a {
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s;
+}
+
+.footer-column ul li a:hover {
+  color: #d7263d; /* colore hover link */
+}
+
+/* Sezione icone social */
+.social-icons {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.social-icons img {
+  width: 24px;  /* dimensioni icona */
+  height: 24px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.social-icons img:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+/* Copyright */
+.footer-copyright {
+  text-align: center;
+  font-size: 0.85rem;
+  margin-top: 20px;
+  color: white;
+}
+
+/* RESPONSIVITÀ: su schermi stretti, le colonne vanno in colonna singola */
+@media screen and (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-column {
+    flex: 1 1 100%;
+    min-width: auto;
+    margin-bottom: 20px;
+  }
+}
+
+  
+  
+  /* ==========================
+     RESPONSIVE
+     ========================== */
+  @media screen and (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .navbar-menu {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .dashboard-container {
+      padding: 70px 20px; /* Più spazio se vogliamo evitare sovrapposizioni */
+    }
+  }
+  

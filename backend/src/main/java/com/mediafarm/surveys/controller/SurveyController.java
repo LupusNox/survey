@@ -3,6 +3,7 @@ package com.mediafarm.surveys.controller;
 import com.mediafarm.surveys.model.Survey;
 import com.mediafarm.surveys.service.SurveyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,8 @@ public class SurveyController {
     // Creazione di un sondaggio
     @PostMapping("/create")
     public ResponseEntity<Survey> createSurvey(@RequestBody Survey survey) {
-        return ResponseEntity.ok(surveyService.createSurvey(survey));
+        Survey createdSurvey = surveyService.createSurvey(survey);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdSurvey);
     }
     
 
@@ -59,6 +61,18 @@ public class SurveyController {
         }
     }
 
+ // Recuperare tutti i sondaggi disponibili per l'utente (quelli a cui non ha risposto)
+    @GetMapping("/available")
+    public ResponseEntity<List<Survey>> getAvailableSurveys(@RequestParam String userEmail) {
+        return ResponseEntity.ok(surveyService.getAvailableSurveys(userEmail));
+    }
+
+    // Recuperare i sondaggi a cui l'utente ha già risposto
+    @GetMapping("/answered")
+    public ResponseEntity<List<Survey>> getAnsweredSurveys(@RequestParam String userEmail) {
+        return ResponseEntity.ok(surveyService.getAnsweredSurveys(userEmail));
+    }
+    
     // Recuperare tutti i sondaggi
     @GetMapping("/all")
     public ResponseEntity<List<Survey>> getAllSurveys() {
@@ -93,6 +107,12 @@ public class SurveyController {
     @GetMapping("/stats/participation")
     public ResponseEntity<Map<String, Long>> getSurveyParticipation() {
         return ResponseEntity.ok(surveyService.getSurveyParticipation());
+    }
+    
+ // ✅ Recupera il sondaggio con tutte le domande e risposte
+    @GetMapping("/{surveyId}/details")
+    public ResponseEntity<Map<String, Object>> getSurveyDetails(@PathVariable Long surveyId) {
+        return ResponseEntity.ok(surveyService.getSurveyDetails(surveyId));
     }
 
     // Modificare un sondaggio

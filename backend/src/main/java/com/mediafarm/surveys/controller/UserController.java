@@ -57,6 +57,19 @@ public class UserController {
             return ResponseEntity.status(401).body(Map.of("error", "User not found"));
         }
     }
+    
+ // 🔹 Classifica utenti basata sui sondaggi completati
+    @GetMapping("/ranking")
+    public ResponseEntity<List<User>> getUserRanking() {
+        return ResponseEntity.ok(userService.getUserRanking());
+    }
+
+    // 🔹 Statistiche globali degli utenti
+    @GetMapping("/statistics")
+    public ResponseEntity<Map<String, Object>> getUserStatistics() {
+        return ResponseEntity.ok(userService.getUserStatistics());
+    }
+    
 
     // ✅ Get All Users (Admin Only)
     @GetMapping("/all")

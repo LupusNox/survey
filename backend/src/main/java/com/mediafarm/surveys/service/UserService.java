@@ -1,19 +1,28 @@
 package com.mediafarm.surveys.service;
 
 import com.mediafarm.surveys.model.User;
+
+
 import com.mediafarm.surveys.model.Role;
+import com.mediafarm.surveys.repository.UserAnswerRepository; // ✅ Nome corretto
 import com.mediafarm.surveys.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
 
 @Service
 public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private UserAnswerRepository userAnswerRepository; // ✅ Corretto il nome
 
     // ✅ Create a new user
     public User createUser(User user) {
@@ -38,6 +47,28 @@ public class UserService {
         user.setRole(Role.USER); // Default role: USER
         userRepository.save(user);
         return "Registration completed!";
+    }
+    
+ // 🔹 Recupera la classifica utenti (ordinati per numero di sondaggi completati)
+    public List<User> getUserRanking() {
+        return userRepository.findAll()
+                .stream()
+                .sorted(Comparator.comparingLong(userAnswerRepository::countByUser).reversed()) // ✅ Corretto il nome
+                .toList();
+    }
+
+    // 🔹 Recupera statistiche globali degli utenti
+    public Map<String, Object> getUserStatistics() {
+        long totalUsers = userRepository.count();
+        long totalCompletedSurveys = userAnswerRepository.countDistinctSurveyByUser();
+        double totalEarnings = userRepository.calculateTotalEarnings();
+
+        Map<String, Object> stats = new HashMap<>();
+        stats.put("totalUsers", totalUsers);
+        stats.put("totalCompletedSurveys", totalCompletedSurveys);
+        stats.put("totalEarnings", totalEarnings);
+
+        return stats;
     }
 
     // ✅ Find user by email

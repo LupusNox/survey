@@ -8,33 +8,33 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Aggiornamento dinamico del titolo della pagina
     document.title = document.title.replace(" - Mediafarm", "") + " - Mediafarm";
 
-    // Recupero il token di autenticazione
+    // Recupero dati utente
     const token = localStorage.getItem("token");
+    const userEmail = localStorage.getItem("userEmail"); // Evitiamo di ridefinirla
+    const userRole = localStorage.getItem("userRole"); // "USER", "ADMIN" o null
+
     const navMenu = document.querySelector("nav ul");
 
-    // Se l'utente è autenticato, aggiunge la dashboard alla navbar
-    if (token && !document.querySelector("nav ul li a[href='pages/dashboard.html']")) {
-        navMenu.innerHTML += `<li><a href="${pathPrefix}pages/dashboard.html">Dashboard</a></li>`;
+    // Gestione del menu di navigazione dinamico
+    if (token) {
+        let dashboardPath = userRole === "ADMIN" ? "dashboard-admin.html" : "dashboard-user.html";
+        
+        if (!document.querySelector(`nav ul li a[href='pages/${dashboardPath}']`)) {
+            navMenu.innerHTML += `<li><a href="pages/${dashboardPath}">Dashboard</a></li>`;
+        }
+    } else {
+        if (!document.querySelector(`nav ul li a[href='pages/dashboard-guest.html']`)) {
+            navMenu.innerHTML += `<li><a href="pages/dashboard-guest.html">Dashboard</a></li>`;
+        }
     }
 
     // Evidenzia la pagina attuale nella navbar
     const currentPage = window.location.pathname.split("/").pop();
-    const navLinks = document.querySelectorAll("nav ul li a");
-
-    navLinks.forEach(link => {
+    document.querySelectorAll("nav ul li a").forEach(link => {
         if (link.getAttribute("href") === currentPage) {
             link.classList.add("active");
         }
     });
-
-    // Bottone di logout
-    const logoutButton = document.querySelector("#logout");
-    if (logoutButton) {
-        logoutButton.addEventListener("click", function () {
-            localStorage.removeItem("token");
-            window.location.href = pathPrefix + "index.html";
-        });
-    }
 
     // Generazione dinamica del footer
     const footerbar = document.querySelector("footer");
@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <h4>Contatti</h4>
                     <p>Email: support@mediafarm.com</p>
                     <p>Telefono: +39 123 456 789</p>
+                    <p>Partita IVA: 12345678901</p>
                 </div>
                 <div class="footer-column">
                     <h4>Seguici</h4>
@@ -71,85 +72,123 @@ document.addEventListener("DOMContentLoaded", async function () {
             <p class="copyright">© 2025 Mediafarm - Tutti i diritti riservati.</p>`;
     }
 
-    // Gestione del LOGIN
-    const loginForm = document.getElementById("loginForm");
-    if (loginForm) {
-        loginForm.addEventListener("submit", async function (event) {
-            event.preventDefault();
-
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-
-            try {
-                const response = await fetch(`${API_BASE_URL}/auth/login`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email, password })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    localStorage.setItem("token", data.token);
-                    alert("Login riuscito!");
-                    window.location.href = "dashboard.html";
-                } else {
-                    alert(data.message || "Errore di autenticazione.");
-                }
-            } catch (error) {
-                console.error("Errore di login:", error);
-                alert("Errore nel login.");
-            }
-        });
+   // **RECUPERO SONDAGGI**
+   async function fetchSurveys(endpoint, containerId) {
+    try {
+        const response = await fetch(`${API_BASE_URL}${endpoint}`);
+        if (!response.ok) throw new Error("Errore nel recupero dei sondaggi");
+        const surveys = await response.json();
+        displaySurveys(surveys, containerId);
+    } catch (error) {
+        console.error(`Errore (${endpoint}):`, error);
     }
+}
 
-    // Gestione della REGISTRAZIONE
-    const registerForm = document.getElementById("registerForm");
-    if (registerForm) {
-        registerForm.addEventListener("submit", async function (event) {
-            event.preventDefault();
+function displaySurveys(surveys, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = surveys.length === 0 ? "<p>Nessun sondaggio disponibile.</p>" :
+        surveys.map(survey => `
+            <div class="survey-item">
+                <h3>${survey.title}</h3>
+                <p>${survey.description}</p>
+                <button onclick="viewSurvey(${survey.id})">Partecipa</button>
+            </div>
+        `).join("");
+}
 
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
+async function viewSurvey(surveyId) {
+    window.location.href = `survey_detail.html?surveyId=${surveyId}`;
+}
 
-            try {
-                const response = await fetch(`${API_BASE_URL}/auth/register`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email, password })
-                });
+if (document.getElementById("availableSurveysContainer")) {
+    fetchSurveys(userRole === "ADMIN" ? "/surveys/all" : `/surveys/available?userEmail=${userEmail}`, "availableSurveysContainer");
+}
 
-                const data = await response.json();
+if (document.getElementById("answeredSurveysContainer") && userRole !== "ADMIN") {
+    fetchSurveys(`/surveys/answered?userEmail=${userEmail}`, "answeredSurveysContainer");
+}
 
-                if (response.ok) {
-                    alert("Registrazione completata! Ora puoi accedere.");
-                    window.location.href = "login.html";
-                } else {
-                    alert(data.message || "Errore durante la registrazione.");
-                }
-            } catch (error) {
-                console.error("Errore di registrazione:", error);
-                alert("Errore durante la registrazione.");
-            }
-        });
-    }
-
-    // Recupero dati della DASHBOARD
-    if (window.location.pathname.includes("dashboard.html")) {
+// **INVIO RISPOSTE UTENTE**
+    async function submitUserAnswers(userAnswers) {
         try {
-            const response = await fetch(`${API_BASE_URL}/dashboard/data`, {
-                method: "GET",
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                }
+            const response = await fetch(`${API_BASE_URL}/user-answers/submit`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(userAnswers)
+            });
+            const data = await response.json();
+            console.log("Risposte inviate con successo:", data);
+        } catch (error) {
+            console.error("Errore nell'invio delle risposte:", error);
+        }
+    }
+
+// Caricamento sondaggi in base al ruolo
+if (document.getElementById("availableSurveysContainer")) {
+    if (userRole === "ADMIN") {
+        fetchSurveys("/surveys/all", "availableSurveysContainer");
+    } else {
+        fetchSurveys(`/surveys/available?userEmail=${userEmail}`, "availableSurveysContainer");
+    }
+}
+
+if (document.getElementById("answeredSurveysContainer") && userRole !== "ADMIN") {
+    fetchSurveys(`/surveys/answered?userEmail=${userEmail}`, "answeredSurveysContainer");
+}
+
+
+
+// Funzione per visualizzare i sondaggi nella pagina
+function displaySurveys(surveys, containerId) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = "";
+
+    if (surveys.length === 0) {
+        container.innerHTML = "<p>Nessun sondaggio disponibile.</p>";
+        return;
+    }
+
+    surveys.forEach(survey => {
+        const surveyElement = document.createElement("div");
+        surveyElement.classList.add("survey-item");
+        surveyElement.innerHTML = `
+            <h3>${survey.title}</h3>
+            <p>${survey.description}</p>
+            <button onclick="viewSurvey(${survey.id})">Partecipa</button>
+        `;
+        container.appendChild(surveyElement);
+    });
+}
+
+// 🔹 Caricamento sondaggi
+if (document.getElementById("availableSurveysContainer")) {
+    if (userRole === "ADMIN") {
+        fetchSurveys("/surveys/all", "availableSurveysContainer");
+    } else if (userEmail) {
+        fetchSurveys(`/surveys/available?userEmail=${userEmail}`, "availableSurveysContainer");
+    }
+}
+
+if (document.getElementById("answeredSurveysContainer") && userRole !== "ADMIN") {
+    if (userEmail) {
+        fetchSurveys(`/surveys/answered?userEmail=${userEmail}`, "answeredSurveysContainer");
+    }
+}
+
+
+     // 🔹 Caricamento dati dashboard
+     if (window.location.pathname.includes("dashboard-")) {
+        let dashboardEndpoint = userRole === "ADMIN" ? "/dashboard/admin-data" : "/dashboard/user-data";
+
+        try {
+            const response = await fetch(`${API_BASE_URL}${dashboardEndpoint}`, {
+                headers: { "Authorization": `Bearer ${token}` }
             });
 
             if (!response.ok) throw new Error("Errore nel recupero dati");
 
             const dashboardData = await response.json();
-
-            // Aggiorna la dashboard con i dati ricevuti
             document.getElementById("total-surveys").innerText = dashboardData.totalSurveys;
             document.getElementById("total-users").innerText = dashboardData.totalUsers;
             document.getElementById("total-answers").innerText = dashboardData.totalAnswers;
