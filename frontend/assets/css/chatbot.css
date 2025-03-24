@@ -1,0 +1,148 @@
+/* Posizionamento della chat a destra sopra il footer */
+.chat-button {
+    position: fixed;
+    bottom: 20px;  /* Posizione più vicina al footer */
+    right: 20px;   /* Posizione a destra */
+    background-color: #ff5722;  /* Colore accattivante */
+    color: white;
+    border-radius: 50%;  /* Rende il bottone rotondo */
+    border: none;
+    padding: 15px;  /* Diminuito per evitare che l'icona sia troppo grande */
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1001; /* Per rimanere sopra altri elementi */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;   /* Impostato per una dimensione corretta */
+    height: 60px;  /* Impostato per una dimensione corretta */
+}
+
+.chat-button:hover {
+    transform: scale(1.1);  /* Effetto hover per ingrandire il bottone */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);  /* Aggiunge una leggera ombra durante l'hover */
+}
+
+/* Aggiungi l'icona al bottone del chatbot come sfondo */
+.chat-button::before {
+    content: "";  /* Rende vuoto il contenuto */
+    background-image: url('../assets/img/chatbot.png');   /* URL dell'icona */
+    background-size: cover;  /* Rende l'icona proporzionale */
+    width: 30px;  /* Larghezza dell'icona */
+    height: 30px;  /* Altezza dell'icona */
+    display: block;
+}
+
+/* Modale della chat */
+.chat-modal {
+    display: none;
+    position: fixed;
+    bottom: 80px;  /* Posiziona il box sopra il bottone */
+    right: 20px;   /* Posiziona il box a destra */
+    width: 300px;  /* Larghezza del box */
+    height: 400px; /* Altezza del box */
+    background-color: #ffffff; /* Colore di sfondo del box */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombra per dare profondità */
+    overflow: hidden;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Intestazione del chatbot */
+.chat-header {
+    background-color: #ff5722;
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Corpo della chat */
+.chat-body {
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #f4f4f4;
+    font-size: 14px;
+}
+
+/* Footer della chat */
+.chat-footer {
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    border-top: 1px solid #ddd;
+}
+
+/* Input di testo per il chatbot */
+#chat-input {
+    width: 75%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+/* Bottone per inviare il messaggio */
+#send-chat {
+    background-color: #ff5722;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+}
+
+#send-chat:hover {
+    background-color: #e64a19;
+}
+
+/* Bottone di chiusura della chat */
+.close-btn {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Messaggi del chatbot */
+.bot-message {
+    background-color: #e4f0f5;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    max-width: 80%;
+    align-self: flex-start;
+}
+
+.user-message {
+    background-color: #ff5722;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    max-width: 80%;
+    align-self: flex-end;
+}
+
+/* Effetto scroll per la chat */
+.chat-body {
+    padding: 10px;
+    overflow-y: auto;
+    max-height: 320px;
+    font-family: 'Arial', sans-serif;
+}

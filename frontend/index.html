@@ -6,6 +6,7 @@
     <title>Mediafarm - Sondaggi Online</title>
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="icon" type="image/jpeg" href="assets/img/logomediafarm.png">
+    <link rel="stylesheet" href="assets/css/chatbot.css">
 </head>
 <body>
 
@@ -23,8 +24,7 @@
             </ul>
         </nav>
     </header>
-
-    
+ 
 
     <div class="hero-features-container">
         <section id="hero">
@@ -53,11 +53,27 @@
         </section>
     </div>
     
-
+    <!-- Bottone Chat -->
+    <button id="chat-button" class="chat-button">
+        
+    </button>
+    
+    <div id="chat-modal" class="chat-modal">
+        <div class="chat-header">
+            <h4>Assistente</h4>
+            <button id="close-chat" class="close-btn">X</button>
+        </div>
+        <div class="chat-body" id="chat-body"></div>
+        <div class="chat-footer">
+            <input type="text" id="chat-input" placeholder="Scrivi il tuo messaggio...">
+            <button id="send-chat">Invia</button>
+        </div>
+    </div>
     <footer>
 
     </footer>
 
+    <script src="assets/js/chatbot.js" defer></script>
     <script src="assets/js/script.js"></script>
 </body>
 </html>
