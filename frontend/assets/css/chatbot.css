@@ -1,22 +1,22 @@
 /* Posizionamento della chat a destra sopra il footer */
+/* Bottone circolare con sfondo arancione */
 .chat-button {
     position: fixed;
-    bottom: 20px;  /* Posizione più vicina al footer */
-    right: 20px;   /* Posizione a destra */
-    background-color: #ff5722;  /* Colore accattivante */
+    bottom: 20px;
+    right: 20px;
+    background-color: #ff5722; /* sfondo arancione */
     color: white;
-    border-radius: 50%;  /* Rende il bottone rotondo */
+    border-radius: 50%;
     border: none;
-    padding: 15px;  /* Diminuito per evitare che l'icona sia troppo grande */
+    padding: 12px; /* leggermente ridotto per dare spazio all'icona */
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    z-index: 1001; /* Per rimanere sopra altri elementi */
+    transition: transform 0.3s ease;
+    width: 60px;  /* dimensioni fisse del bottone */
+    height: 60px; /* dimensioni fisse del bottone */
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 60px;   /* Impostato per una dimensione corretta */
-    height: 60px;  /* Impostato per una dimensione corretta */
+    justify-content: center; /* centrare il contenuto */
 }
 
 .chat-button:hover {
@@ -24,14 +24,11 @@
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);  /* Aggiunge una leggera ombra durante l'hover */
 }
 
-/* Aggiungi l'icona al bottone del chatbot come sfondo */
-.chat-button::before {
-    content: "";  /* Rende vuoto il contenuto */
-    background-image: url('../assets/img/chatbot.png');   /* URL dell'icona */
-    background-size: cover;  /* Rende l'icona proporzionale */
-    width: 30px;  /* Larghezza dell'icona */
-    height: 30px;  /* Altezza dell'icona */
-    display: block;
+/* L'icona PNG all'interno del bottone */
+.chat-icon {
+    width: 75px;  /* dimensione dell'icona */
+    height: 75px; /* dimensione dell'icona */
+    object-fit: contain; /* assicura che l'icona sia ridimensionata proporzionalmente */
 }
 
 /* Modale della chat */
